@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkiExtraction", "AnkiExtraction\AnkiExtraction.csproj", "{F88907D3-492C-44AC-96B9-43BE32ABC92F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnkiExtraction", "AnkiExtraction\AnkiExtraction.csproj", "{F88907D3-492C-44AC-96B9-43BE32ABC92F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnkiSharpTest", "AnkiSharpTest\AnkiSharpTest.csproj", "{D66FF2CF-4602-4C8F-B5B2-7B6ECBCE23D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F88907D3-492C-44AC-96B9-43BE32ABC92F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F88907D3-492C-44AC-96B9-43BE32ABC92F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F88907D3-492C-44AC-96B9-43BE32ABC92F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66FF2CF-4602-4C8F-B5B2-7B6ECBCE23D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66FF2CF-4602-4C8F-B5B2-7B6ECBCE23D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66FF2CF-4602-4C8F-B5B2-7B6ECBCE23D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66FF2CF-4602-4C8F-B5B2-7B6ECBCE23D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

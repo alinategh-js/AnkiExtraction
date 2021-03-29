@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.IO.Compression;
+using Newtonsoft.Json.Linq;
 
 namespace AnkiExtraction
 {
@@ -12,9 +13,13 @@ namespace AnkiExtraction
     {
         static void Main(string[] args)
         {
+
             string archivePath = "D:";
             string archiveName = "MyArchive.apkg";
             string destinationPath = "D:/wfd";
+
+            DirectoryInfo directory = new DirectoryInfo(destinationPath);
+
             // Extracting audios from the .apkg file //
             Extract(archivePath, archiveName, destinationPath);
 
@@ -22,26 +27,24 @@ namespace AnkiExtraction
             // Get audio texts from the 'collection' sqlite database //
             GetFieldsFromCollection(flds, destinationPath);
 
+            // Rename the media file and adding .json to it. then parsing the json data.
+            File.Move($"{destinationPath}/media", $"{ destinationPath}/media.json");
+            JObject jsonData = JObject.Parse(File.ReadAllText($"{destinationPath}/media.json"));
+
             // renaming audio files and adding .mp3 to them //
-            DirectoryInfo d = new DirectoryInfo(destinationPath);
-            FileInfo[] infos = d.GetFiles();
+            FileInfo[] infos = directory.GetFiles();
             foreach (FileInfo f in infos)
             {
-                if(f.Name != "collection.anki2" && f.Name != "media") 
+                if (f.Name != "collection.anki2" && f.Name != "media.json")
                 {
-                    File.Move(f.FullName, f.FullName.Insert(f.FullName.Length, ".mp3"));
+                    string newName = jsonData[f.Name].ToString();
+                    string newFullName = destinationPath + "/" + newName;
+                    File.Move(f.FullName, newFullName);
+
+                    var str = flds.Find(s => s.Contains(newName));
+                    string audioText = str.Substring(34);
+                    InsertIntoDatabase(newFullName, audioText);
                 }
-            }
-
-
-            // storing audio paths and texts into the database //
-            foreach (var str in flds)
-            {
-                int audioNumber;
-                Int32.TryParse(str.Substring(0, 4), out audioNumber);
-                //string audioName = str.Substring(12, 20);
-                string audioText = str.Substring(34);
-                InsertIntoDatabase($"{destinationPath}/{audioNumber}.mp3", audioText);
             }
 
         }
